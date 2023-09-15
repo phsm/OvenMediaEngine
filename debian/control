@@ -1,0 +1,21 @@
+Source: ovenmediaengine
+Maintainer: Airensoft <contact@airensoft.com>
+Section: misc
+Priority: optional
+Build-Depends: debhelper, g++, make, pkg-config, bc, libssl-dev, libsrt-openssl-dev, libavcodec-dev, libavfilter-dev, libavutil-dev, libhiredis-dev, libjemalloc-dev, libsrtp2-dev, libopus-dev, libpcre2-dev, libmfx-dev, libva-dev, libfdk-aac-dev, libvpx-dev, libx264-dev, libx265-dev, uuid-dev, zlib1g-dev
+
+Package: ovenmediaengine
+Homepage: https://airensoft.com/ome
+Architecture: amd64
+Depends: libssl3, libsrt1.5-openssl | libsrt1.4-openssl, libavcodec59 | libavcodec58, libavfilter8 | libavfilter7, libavutil57 | libavutil56, libhiredis0.14, libjemalloc2, libsrtp2-1, libopus0, libpcre2-8-0, libpcre3, libmfx1, libva2, libfdk-aac2, libvpx7, libx264-164 | libx264-163, libx265-199, libuuid1, zlib1g
+Recommends: libcuda1 libmfx-gen1.2
+Description: OvenMediaEngine
+ OvenMediaEngine (OME) is a Sub-Second Latency Streaming
+ Server that can stream Large-scale and High-definition
+ live streams over Low Latency HLS (LLHLS) and WebRTC 
+ to hundreds of thousands of viewers.
+ OME can ingest live streams over WebRTC, SRT, RTMP, RTSP,
+ and MPEG2-TS protocols, encode them to ABR
+ with the embedded live transcoder, and stream them to 
+ viewers over LLHLS and WebRTC.
+ 

@@ -1,0 +1,8 @@
+#!/bin/sh
+cat <<EOF
+If you want to use Intel QSV you might need to install the following packages:
+libmfx-gen1.2 intel-media-va-driver
+
+Additionally you may need to pass the following parameter to i915 module:
+echo "options i915 enable_guc=2" > /etc/modprobe.d/i915.conf
+EOF

@@ -1,0 +1,29 @@
+#!/usr/bin/make -f
+VERSION := $(sh debian/get_version.sh)
+PKGNAME = ovenmediaengine
+DESTDIR = debian/$(PKGNAME)
+SYSCONFDIR = $(DESTDIR)/etc
+
+%:
+	dh $@
+
+override_dh_clean:
+	@#
+
+override_dh_shlibdeps:
+	@#
+
+override_dh_auto_build:
+	cd src && \
+	make release
+
+override_dh_strip:
+	strip --strip-all $(DESTDIR)/usr/bin/OvenMediaEngine
+
+override_dh_auto_install:
+	install -D -m0755 src/bin/RELEASE/OvenMediaEngine $(DESTDIR)/usr/bin/OvenMediaEngine
+	install -D -m0644 misc/conf_examples/Origin.xml $(SYSCONFDIR)/$(PKGNAME)/Origin.xml
+	install -D -m0644 misc/conf_examples/Logger.xml $(SYSCONFDIR)/$(PKGNAME)/Logger.xml
+	install -D -m0644 misc/ovenmediaengine.service $(DESTDIR)/lib/systemd/system/$(PKGNAME).service
+	install -D -m0644 LICENSE $(DESTDIR)/usr/share/doc/$(PKGNAME)/LICENSE
+
