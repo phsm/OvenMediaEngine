@@ -22,7 +22,7 @@ override_dh_strip:
 
 override_dh_auto_install:
 	install -D -m0755 src/bin/RELEASE/OvenMediaEngine $(DESTDIR)/usr/bin/OvenMediaEngine
-	install -D -m0644 misc/conf_examples/Origin.xml $(SYSCONFDIR)/$(PKGNAME)/Origin.xml
+	install -D -m0644 misc/conf_examples/Origin.xml $(SYSCONFDIR)/$(PKGNAME)/Server.xml
 	install -D -m0644 misc/conf_examples/Logger.xml $(SYSCONFDIR)/$(PKGNAME)/Logger.xml
 	install -D -m0644 misc/ovenmediaengine.service $(DESTDIR)/lib/systemd/system/$(PKGNAME).service
 	install -D -m0644 LICENSE $(DESTDIR)/usr/share/doc/$(PKGNAME)/LICENSE

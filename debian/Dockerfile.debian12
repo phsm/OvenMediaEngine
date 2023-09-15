@@ -1,0 +1,30 @@
+FROM debian:12 as base
+ENV DEBIAN_FRONTEND=noninteractive
+ARG QSV=FALSE
+RUN sed -i 's/Components: main/Components: main non-free/g' \
+           /etc/apt/sources.list.d/debian.sources && \
+    apt update && \
+    apt install -y libssl3 libsrt1.5-openssl libavcodec59 libavfilter8 \
+                libavutil57 libhiredis0.14 libjemalloc2 libsrtp2-1 \
+                libopus0 libpcre2-8-0 libpcre3 libmfx1 libva2 libfdk-aac2 \
+                libvpx7 libx264-164 libx265-199 libuuid1 zlib1g && \
+    [ "x$QSV" == "xTRUE" ] && apt install -y libmfx-gen1.2
+
+
+FROM base as build
+RUN apt install -y debhelper g++ make pkg-config bc libssl-dev \
+    libsrt-openssl-dev libavcodec-dev libavfilter-dev libavutil-dev \
+    libhiredis-dev libjemalloc-dev libsrtp2-dev libopus-dev libpcre2-dev \
+    libmfx-dev libva-dev libfdk-aac-dev libvpx-dev libx264-dev libx265-dev \
+    uuid-dev zlib1g-dev git && \
+    ./debian/build-deb.sh && \
+    mv ../ovenmediaengine*.deb package.deb
+
+
+FROM build as release
+COPY --from=build package.deb package.deb
+RUN apt install -y ./package.deb && \
+    rm -f ./package.deb
+
+
+CMD ["/usr/bin/OvenMediaEngine", "-c", "/etc/ovenmediaengine"]
